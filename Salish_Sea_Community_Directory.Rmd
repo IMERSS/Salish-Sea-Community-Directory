@@ -1,37 +1,37 @@
 ---
 title: Salish Sea Community Directory
-author: IMERSS biodiversity informatics working group
+author: Northeast Pacific Biodiversity Action Network
 date: February 12th, 2023
 output: html_document
 knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "docs") })
 ---
-## Introduction
+## Átl’ḵa7tsem/Howe Sound Marine Stewardship Initiative
 
-This project hosts a skeleton structure suitable for building out and publishing a map-based scrollytelling
-interface based on R Markdown. You can build your own scrollytelling interface using R and R Markdown,
-using free tools such as git, R and R studio, and publish and host it for free using [GitHub Pages](https://pages.github.com/).
+### Átl'ḵa7tsem/Howe Sound Marine Reference Guide
 
-This first section renders a basic vector map layer represented as an ESRI Shapefile, perhaps
-[exported from a GIS system such as QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/supported_data.html#esri-shapefile-format).
+An initiative whose goal is to build capacity to protect the diverse economic, ecological, cultural, and social values associated with Átl’ka7tsem/Howe Sound’s ocean and freshwater. The Initiative has created a centralized interactive map that pulls together information about the Sound’s ocean to support informed decision-making, collaborative management, marine spatial planning, and community education.
 
-```{r, echo=FALSE, message=FALSE}
-source("scripts/vector_map_script.R")
-baseMap
+[Contact](https://howesoundguide.ca/contact-us/)
+
+[Website](https://howesoundguide.ca)
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/Howe_Sound.R")
+Map
 ```
 
+## Coastal and Ocean Resources
 
-## Raster map
+### ShoreZone
 
-This section renders a map holding a raster layer represented as a GeoTIFF file. Once processed by the reknitting system described in this project's README, these two maps will be compiled into two layers
-of a single map which can be reached through a linear scrollytelling interface. Any further maps
-added under 2nd-level headings in this document will be compiled as further layers.
+ShoreZone takes a close-up inventory of the biology and geology of North America’s Pacific coast from Oregon to Alaska and in-between. People use the coastal data, imagery, and maps to manage the coast for the benefit of the many animals and plants, people and industries who depend on it. ShoreZone’s baseline data improves our ability to understand, respond to, and plan for the dynamic coastal changes taking place in the Pacific Northwest and Alaska – changes such as increasing storm frequency and coastal erosion, projected increases in shipping traffic, and offshore oil and gas development. With ShoreZone coastal managers have access to data to support planning and response efforts. Dozens of partners are helping to make millions of photos, video, maps, and digital habitat data available online to the public for free.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-source("scripts/raster_map_script.R")
-rasterMap
-```
+[Contact](ShoreZoneOrg@gmail.com)
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+[Website](https://www.shorezone.org/)
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/COR.R")
+Map
 ```
