@@ -1,6 +1,7 @@
 library(sf)
 library(leaflet)
 library(raster)
+library(rmapshaper)
 
 source("scripts/utils.R")
 
@@ -21,6 +22,9 @@ islands <- mx_read("spatial_data/vectors/islands")
 # Layer 4: Location
 location <- mx_read("spatial_data/vectors/locations/Salish_Sea")
 
+location <- rmapshaper::ms_simplify(input = as(location, 'Spatial')) %>%
+  st_as_sf()
+
 bbox <- st_bbox(location) %>% as.vector()
 
 # Create raster palette
@@ -33,7 +37,7 @@ pal <- colorNumeric(c("#0C2C84", "#41B6C4", "#FFFFCC"), values(SS_DSM),
 # Don't output raster again to avoid bloating output
 
 Map <- leaflet() %>%
-  addTiles(options = providerTileOptions(opacity = 0.5)) %>%
+  addProviderTiles(providers$CartoDB.DarkMatterNoLabels) %>%
 #  addRasterImage(SS_DSM, colors = pal, opacity = 0.8) %>% 
   addPolygons(data = boundary, color = "blue", weight = 2, fillOpacity = 0, layerId = "mx_baseMap") %>%
   addPolygons(data = islands, color = "blue", weight = 1, fillOpacity = 0, layerId = "mx_baseMap") %>%
