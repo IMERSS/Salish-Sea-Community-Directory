@@ -37,7 +37,7 @@ pal <- colorNumeric(c("#0C2C84", "#41B6C4", "#FFFFCC"), values(SS_DSM),
 # Don't output raster again to avoid bloating output
 
 Map <- leaflet() %>%
-  addProviderTiles(providers$CartoDB.DarkMatterNoLabels) %>%
+  addTiles("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png") %>%
 #  addRasterImage(SS_DSM, colors = pal, opacity = 0.8) %>% 
   addPolygons(data = boundary, color = "blue", weight = 2, fillOpacity = 0, layerId = "mx_baseMap") %>%
   addPolygons(data = islands, color = "blue", weight = 1, fillOpacity = 0, layerId = "mx_baseMap") %>%

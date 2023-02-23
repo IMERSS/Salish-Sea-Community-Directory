@@ -36,7 +36,7 @@ pal <- colorNumeric(c("#0C2C84", "#41B6C4", "#FFFFCC"), values(SS_DSM),
 
 # Note that we can't supply general options to addRasterImage because of issue https://stackoverflow.com/questions/54679054/r-leaflet-use-pane-with-addrasterimage
 Map <- leaflet() %>%
-  addProviderTiles(providers$CartoDB.DarkMatterNoLabels) %>%
+  addTiles("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png") %>%
   addRasterImage(SS_DSM, colors = pal, opacity = 0.8, layerId = "mx_baseMap") %>% 
   addPolygons(data = boundary, color = "blue", weight = 2, fillOpacity = 0, layerId = "mx_baseMap") %>%
   addPolygons(data = islands, color = "blue", weight = 1, fillOpacity = 0, layerId = "mx_baseMap") %>%
