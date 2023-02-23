@@ -7,45 +7,16 @@ knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "docs") })
 ---
 
-```{r, echo=FALSE, warning=FALSE,message=FALSE}
-communities <- read.csv("test.csv")
-```
-
-```{r, echo=FALSE,include=TRUE,warning=FALSE,message=FALSE,results="asis"}
-for(i in 1:nrow(communities)) {
-  cat('##', communities$community[i], '\n')
-  cat('###', communities$project[i], '\n')
-  cat(communities$summary[i], '\n\n')
-  cat('[Website](', communities$email_contact_url[i],')','\n\n')
-}
-```
-
-## Átl'ḵa7tsem/Howe Sound Marine Stewardship Initiative
-
-### Átl'ḵa7tsem/Howe Sound Marine Reference Guide
-
-An initiative whose goal is to build capacity to protect the diverse economic, ecological, cultural, and social values associated with Átl’ka7tsem/Howe Sound’s ocean and freshwater. The Initiative has created a centralized interactive map that pulls together information about the Sound’s ocean to support informed decision-making, collaborative management, marine spatial planning, and community education.
-
-[Contact](https://howesoundguide.ca/contact-us/)
-
-[Website](https://howesoundguide.ca)
+## Location-Map-Howe_Sound
 
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 source("scripts/Howe_Sound.R")
 Map
 ```
 
-## Coastal and Ocean Resources
-
-### ShoreZone
-
-ShoreZone takes a close-up inventory of the biology and geology of North America’s Pacific coast from Oregon to Alaska and in-between. People use the coastal data, imagery, and maps to manage the coast for the benefit of the many animals and plants, people and industries who depend on it. ShoreZone’s baseline data improves our ability to understand, respond to, and plan for the dynamic coastal changes taking place in the Pacific Northwest and Alaska – changes such as increasing storm frequency and coastal erosion, projected increases in shipping traffic, and offshore oil and gas development. With ShoreZone coastal managers have access to data to support planning and response efforts. Dozens of partners are helping to make millions of photos, video, maps, and digital habitat data available online to the public for free.
-
-[Contact](ShoreZoneOrg@gmail.com)
-
-[Website](https://www.shorezone.org/)
+## Location-Map-Salish_Sea
 
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
-source("scripts/COR.R")
+source("scripts/Salish_Sea.R")
 Map
 ```

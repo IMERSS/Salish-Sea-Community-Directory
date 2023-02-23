@@ -67,8 +67,18 @@ h2 {
     transition-duration: 400ms;
 }
 
+.mxcw-locationSection {
+    display: none;
+}
+
 .mxcw-mapLabel {
     z-index: 999 !important;
+}
+
+/* The base map pane is always visible and begin any location-specific panes*/
+.leaflet-maxwell-pane-mx_baseMap-pane.mxcw-mapPane {
+    opacity: 1;
+    z-index: 300;
 }
 
 .mxcw-fireLabel {
