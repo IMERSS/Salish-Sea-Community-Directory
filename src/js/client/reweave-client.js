@@ -422,7 +422,9 @@ maxwell.applyView = function (map, xData) {
 maxwell.flyToBounds = function (map, xData) {
     const bounds = xData.fitBounds;
     if (bounds) {
-        map.flyToBounds([[bounds[0], bounds[1]], [bounds[2], bounds[3]]]);
+        map.flyToBounds([[bounds[0], bounds[1]], [bounds[2], bounds[3]]], {
+            duration: 2
+        });
     }
 };
 
