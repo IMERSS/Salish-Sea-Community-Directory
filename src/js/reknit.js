@@ -2,7 +2,7 @@
 
 "use strict";
 
-const {resolvePath, asyncForEach} = require("./utils.js");
+const {resolvePath, asyncForEach, loadJSON5File} = require("./utils.js");
 
 const fs = require("fs-extra"),
     linkedom = require("linkedom");
@@ -71,7 +71,9 @@ const reweaveFile = async function (infile, outfile, options) {
     const template = parseDocument(resolvePath(options.template));
     movePlotlyWidgets(template, sections, container);
     container.querySelector("h1").remove();
-    await asyncForEach(options.transforms || [], async (transform) => {
+    await asyncForEach(options.transforms || [], async (rec) => {
+        const file = require(resolvePath(rec.file));
+        const transform = file[rec.func];
         await transform(document, container);
     });
     const target = template.querySelector(".mxcw-content");
@@ -80,54 +82,23 @@ const reweaveFile = async function (infile, outfile, options) {
     writeFile(resolvePath(outfile), outMarkup);
 };
 
-// Material below here gets factored out into a driver of some kind
-
-const {addCommunitySections} = require("./ss-directory.js");
-
-const reweaveJobs = [{
-    infile: "%maxwell/docs/Salish_Sea_Community_Directory.html",
-    outfile: "%maxwell/docs/Salish_Sea_Community_Directory-Rewoven.html",
-    options: {
-        template: "%maxwell/src/html/template.html",
-        transforms: [addCommunitySections]
-    }
-}];
-
-
 /** Copy dependencies into docs directory for GitHub pages **/
 
 const copyDep = function (source, target) {
+    const targetPath = resolvePath(target);
     fs.copySync(resolvePath(source), resolvePath(target));
+    fs.chmodSync(targetPath, "644");
 };
 
-const deps = [{
-    source: "%maxwell/src/js/client/reweave-client.js",
-    target: "%maxwell/docs/js/reweave-client.js"
-}, {
-    source: "%maxwell/src/js/client/ss-directory-client.js",
-    target: "%maxwell/docs/js/ss-directory-client.js"
-}, {
-    source: "%maxwell/src/js/client/plotly-2.1.1.js",
-    target: "%maxwell/docs/js/plotly-2.1.1.js"
-}, {
-    source: "%maxwell/src/js/client/htmlwidgets.js",
-    target: "%maxwell/docs/js/htmlwidgets.js"
-}, {
-    source: "%maxwell/src/js/client/htmlwidgets-plotly.js",
-    target: "%maxwell/docs/js/htmlwidgets-plotly.js"
-}, {
-    source: "%maxwell/src/css/maxwell.css",
-    target: "%maxwell/docs/css/maxwell.css"
-}];
+const reknit = async function () {
+    const config = loadJSON5File("%maxwell/config.json5");
+    await asyncForEach(config.reknitJobs, async (rec) => reweaveFile(rec.infile, rec.outfile, rec.options));
 
-const reweave = async function () {
-    await asyncForEach(reweaveJobs, async (rec) => reweaveFile(rec.infile, rec.outfile, rec.options));
-
-    deps.forEach(function (dep) {
+    config.copyJobs.forEach(function (dep) {
         copyDep(dep.source, dep.target);
     });
 };
 
-reweave().then();
+reknit().then();
 
 

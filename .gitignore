@@ -104,5 +104,7 @@ dist
 .tern-port
 .Rproj.user
 
+.Rhistory
+
 .DS_Store
 

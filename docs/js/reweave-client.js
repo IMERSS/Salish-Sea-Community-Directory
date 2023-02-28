@@ -68,17 +68,17 @@ maxwell.EventEmitter = class {
  * Information about a scrollable section element of a scrollytelling interface
  *
  * @typedef {Object} SectionHolder
- * @property {DomElement} section - The section node housing the widget
- * @property {DomElement} heading - The heading (currently h2 node) housing the widget
+ * @property {HTMLElement} section - The section node housing the widget
+ * @property {HTMLElement} heading - The heading (currently h2 node) housing the widget
  */
 
 /**
  * Decoded information about a Leaflet widget
  *
  * @typedef {SectionHolder} LeafletWidgetInfo
- * @property {DomElement} [widget] - The DOM node holding the widget
+ * @property {HTMLElement} [widget] - The DOM node holding the widget
  * @property {Object} data - The `data` entry associated with the widget
- * @property {DomElement} [pane] - The pane to which the widget is allocated in the target map
+ * @property {HTMLElement} [pane] - The pane to which the widget is allocated in the target map
  * @property {Array} subPanes - Any subpanes to which the widget's calls are allocated
  */
 
@@ -244,7 +244,7 @@ maxwell.methodToLayoutArg = {
 /**
  * Looks up any `layoutId` argument in the supplied Leaflet widget's `call` structure
  * @param {HTMLWidgetCall} call - The call to be searched
- * @return {String|Undefined} - The `layoutId` argument, if any
+ * @return {String|undefined} - The `layoutId` argument, if any
  */
 maxwell.decodeLayoutId = function (call) {
     const argPos = maxwell.methodToLayoutArg[call.method];
@@ -256,7 +256,7 @@ maxwell.decodeLayoutId = function (call) {
  * @param {LeafletWidgetInfo} widget - The information structure for the widget as returned from findLeafletWidgets. This will
  * be modified by the call to add a member `pane` indicating the base pane to which the widget is allocated (this may
  * be overriden by a `layerId` entry in a particular `call` entry for the widget)
- * @param {Intager} index - The index of the widget/section heading in the document structure
+ * @param {Integer} index - The index of the widget/section heading in the document structure
  */
 maxwell.leafletWidgetToPane = function (map, widget, index) {
     const calls = widget.data.x.calls;
@@ -430,9 +430,9 @@ maxwell.flyToBounds = function (map, xData) {
 
 /** Currently used to support Salish Sea Community Directory - decode from the widget's section id whether it
  * represents a location map and assign this into the widget structure
- * @param {LeafletWidgetInfo} widget - The information structure for the widget
+ * @param {LeafletWidgetInfo} widget - The information structure for the widget - this will be modified to include
+ * a `locationId` element.
  */
-
 maxwell.decodeLocationId = function (widget) {
     const id = widget.section.id;
     if (id.startsWith("location-map-")) {

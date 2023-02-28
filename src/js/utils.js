@@ -2,6 +2,9 @@
 
 "use strict";
 
+const JSON5 = require("json5"),
+    fs = require("fs");
+
 require("../../index.js");
 
 const modules = {
@@ -28,4 +31,15 @@ async function asyncForEach(array, callback) {
     }
 }
 
-module.exports = {modules, stringTemplate, resolvePath, asyncForEach};
+const loadJSON5File = function (path) {
+    const resolved = resolvePath(path);
+    try {
+        const text = fs.readFileSync(resolved, "utf8");
+        return JSON5.parse(text);
+    } catch (e) {
+        e.message = "Error reading JSON5 file " + resolved + "\n" + e.message;
+        throw e;
+    }
+};
+
+module.exports = {modules, stringTemplate, resolvePath, asyncForEach, loadJSON5File};
