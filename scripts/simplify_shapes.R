@@ -13,13 +13,14 @@ source("scripts/utils.R")
 
 # Read original shape
 
-location <- mx_read("spatial_data/vectors/locations/Salish_Sea")
+location <- mx_read("spatial_data/vectors/locations/Galiano_Island")
 
 # Simplify shape
 
 location <- rmapshaper::ms_simplify(input = as(location, 'Spatial')) %>%
   st_as_sf()
 
-# Write shape
+# Export simplified shape
+# Note: cannot set path for writing new layer; by default writes to root directory
 
-st_write(location, dsn = "Salish_Sea.shp", layer = "spatial_data/vectors/locations/Salish_Sea/Salish_Sea.shp", driver = "ESRI Shapefile")
+st_write(location, dsn = "Galiano_Island.shp", layer = "Galiano_Island.shp", driver = "ESRI Shapefile")
