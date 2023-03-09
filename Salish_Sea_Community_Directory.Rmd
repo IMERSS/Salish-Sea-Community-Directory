@@ -1,11 +1,33 @@
 ---
-title: Salish Sea Community Directory
+title: Salish Sea Community Atlas
 author: Northeast Pacific Biodiversity Action Network
-date: February 17th, 2023
+date: March 8th, 2023
 output: html_document
 knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "docs") })
 ---
+
+## Location-Map-GINPR
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/GINPR.R")
+Map
+```
+
+## Location-Map-Galiano_Island
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/Galiano_Island.R")
+Map
+```
+
+## Location-Map-Georgia_Strait
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/Georgia_Strait.R")
+Map
+```
+
 
 ## Location-Map-Howe_Sound
 
@@ -14,9 +36,24 @@ source("scripts/Howe_Sound.R")
 Map
 ```
 
+## Location-Map-Puget_Sound
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/Puget_Sound.R")
+Map
+```
+
+
 ## Location-Map-Salish_Sea
 
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 source("scripts/Salish_Sea.R")
+Map
+```
+
+## Location-Map-SGI
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/SGI.R")
 Map
 ```

@@ -20,7 +20,6 @@ bbox <- st_bbox(location) %>% as.vector()
 
 # Render leaflet map
 
-# Note that we can't supply general options to addRasterImage because of issue https://stackoverflow.com/questions/54679054/r-leaflet-use-pane-with-addrasterimage
 Map <- leaflet() %>%
   addTiles("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png") %>%
   addPolygons(data = boundary, color = "blue", weight = 2, fillOpacity = 0, layerId = "mx_baseMap") %>%
@@ -29,4 +28,3 @@ Map <- leaflet() %>%
   fitBounds(bbox[1], bbox[2], bbox[3], bbox[4])
 
 print(Map)
-# saveWidget(Map, file="Howe_Sound.html")
