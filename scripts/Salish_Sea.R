@@ -14,8 +14,7 @@ islands <- mx_read("spatial_data/vectors/islands")
 # Layer 3: Location
 location <- mx_read("spatial_data/vectors/locations/Salish_Sea")
 
-location <- rmapshaper::ms_simplify(input = as(location, 'Spatial')) %>%
-  st_as_sf()
+# Set bounding box
 
 bbox <- st_bbox(location) %>% as.vector()
 
