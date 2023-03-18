@@ -46,5 +46,15 @@ fluid.defaults("maxwell.scrollyWithCommunitySections", {
     invokers: {
         sectionIndexToWidgetIndex: "maxwell.sectionIndexToCommunityIndex({arguments}.0, {that}.communitySections)",
         resolveSectionHolders: "fluid.identity({that}.communitySections)"
+    },
+    components: {
+        map: {
+            options: {
+                listeners: {
+                    // Override this listener - check if it can be removed from base grade
+                    "onCreate.applyView": "fluid.identity"
+                }
+            }
+        }
     }
 });
