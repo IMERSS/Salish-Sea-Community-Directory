@@ -1,12 +1,16 @@
 "use strict";
 
-/* global maxwell */
+// noinspection ES6ConvertVarToLetConst // otherwise this is a duplicate on minifying
+var maxwell = fluid.registerNamespace("maxwell");
 
-maxwell.mapDirectorySections = function () {
-    const locationSections = [...document.querySelectorAll(".mxcw-locationSection")];
+maxwell.sectionIndexToCommunityIndex = function (sectionIndex, communitySections) {
+    return communitySections[sectionIndex].locationIndex;
+};
+
+maxwell.resolveLocationSections = function (locationSections) {
     const idToSection = {};
     const prefix = "Location-Map-";
-    locationSections.forEach(function (section, index) {
+    [...locationSections].forEach(function (section, index) {
         const heading = section.querySelector("h2");
         const headingText = heading.innerText;
         if (!headingText.startsWith(prefix)) {
@@ -16,20 +20,41 @@ maxwell.mapDirectorySections = function () {
         // const id = section.id.substring("location-map-".length);
         idToSection[id] = {section, index};
         console.log("Got section with id ", id);
-
     });
-    const communitySectionNodes = [...document.querySelectorAll(".mxcw-communitySection")];
-    const communitySections = communitySectionNodes.map(function (section) {
+    return idToSection;
+};
+
+maxwell.resolveCommunitySections = function (idToSection, communitySectionNodes) {
+    const communitySections = [...communitySectionNodes].map(function (section) {
         const locationId = section.getAttribute("data-community-location");
         const heading = section.querySelector("h2");
         const locationIndex = idToSection[locationId].index;
         return {locationId, locationIndex, section, heading};
     });
-
-    // This lookup function is mixed in to the overall leaflet instance to override the identity
-    const sectionIndexToWidgetIndex = sectionIndex => communitySections[sectionIndex].locationIndex;
-
-    return {idToSection, communitySections, sectionIndexToWidgetIndex};
+    return communitySections;
 };
 
-
+fluid.defaults("maxwell.scrollyWithCommunitySections", {
+    selectors: {
+        locationSection: ".mxcw-locationSection",
+        communitySection: ".mxcw-communitySection"
+    },
+    members: {
+        idToSection: "@expand:maxwell.resolveLocationSections({that}.dom.locationSection)",
+        communitySections: "@expand:maxwell.resolveCommunitySections({that}.idToSection, {that}.dom.communitySection)"
+    },
+    invokers: {
+        sectionIndexToWidgetIndex: "maxwell.sectionIndexToCommunityIndex({arguments}.0, {that}.communitySections)",
+        resolveSectionHolders: "fluid.identity({that}.communitySections)"
+    },
+    components: {
+        map: {
+            options: {
+                listeners: {
+                    // Override this listener - check if it can be removed from base grade
+                    "onCreate.applyView": "fluid.identity"
+                }
+            }
+        }
+    }
+});

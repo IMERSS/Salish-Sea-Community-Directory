@@ -1,7 +1,7 @@
 {
     reknitJobs: [{
         infile: "%maxwell/docs/Salish_Sea_Community_Directory.html",
-        outfile: "%maxwell/docs/Salish_Sea_Community_Directory-Rewoven.html",
+        outfile: "%maxwell/docs/Salish_Sea_Community_Directory-Reknitted.html",
         options: {
             template: "%maxwell/src/html/template.html",
             transforms: [
@@ -12,8 +12,13 @@
         }
     }],
     copyJobs: [{
-        source: "%maxwell/src/js/client/reweave-client.js",
-        target: "%maxwell/docs/js/reweave-client.js"
+        source: "%infusion/dist/infusion-framework.js",
+        target: "%maxwell/docs/js/infusion-framework.js",
+        replaceSource: "sourceMappingURL=infusion-framework.js.map",
+        replaceTarget: "sourceMappingURL=../../node_modules/infusion/dist/infusion-framework.js.map"
+    }, {
+        source: "%maxwell/src/js/client/reknit-client.js",
+        target: "%maxwell/docs/js/reknit-client.js"
     }, {
         source: "%maxwell/src/js/client/ss-directory-client.js",
         target: "%maxwell/docs/js/ss-directory-client.js"
