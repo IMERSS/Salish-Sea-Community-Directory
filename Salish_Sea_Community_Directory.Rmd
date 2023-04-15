@@ -36,6 +36,13 @@ source("scripts/Howe_Sound.R")
 Map
 ```
 
+## Location-Map-ICO
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+source("scripts/ICO.R")
+Map
+```
+
 ## Location-Map-Puget_Sound
 
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
