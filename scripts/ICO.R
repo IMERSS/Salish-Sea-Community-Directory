@@ -25,7 +25,7 @@ bbox <- st_bbox(location) %>% as.vector()
 Map <- leaflet() %>%
   addTiles("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png") %>%
   addPolygons(data = boundary, color = "blue", weight = 2, fillOpacity = 0, layerId = "mx_baseMap") %>%
-  addCircleMarkers(data = points, ~X, ~Y, label = paste(location$GEONAME),
+  addCircleMarkers(data = points.coordinates, ~X, ~Y, label = paste(location$GEONAME),
                    fillColor = "#d5b43c",
                    fillOpacity = 1,
                    stroke = F,
